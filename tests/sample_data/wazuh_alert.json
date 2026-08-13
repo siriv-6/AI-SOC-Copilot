@@ -1,0 +1,23 @@
+{
+    "id": "1764860000.123456",
+    "timestamp": "2026-08-13T10:00:00.000+0530",
+
+    "agent": {
+        "id": "001",
+        "name": "windows-endpoint"
+    },
+
+    "rule": {
+        "id": "100002",
+        "level": 10,
+        "description": "Suspicious network connection detected"
+    },
+
+    "data": {
+        "srcip": "192.168.1.100",
+        "dstip": "10.0.0.50",
+        "srcport": "49152",
+        "dstport": "8080",
+        "protocol": "TCP"
+    }
+}
