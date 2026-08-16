@@ -34,6 +34,10 @@ class AlertPredictionService:
     # ============================================================
 
     def process_alert(self, alert):
+        if not isinstance(alert, dict):
+            raise ValueError(
+        "Wazuh alert must be a dictionary."
+    )
 
         # --------------------------------------------------------
         # STEP 1 - Parse Wazuh alert
