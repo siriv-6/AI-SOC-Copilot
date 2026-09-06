@@ -12,13 +12,15 @@ class SOCState(TypedDict, total=False):
 
     incident: dict
 
-    threat: object
+    # Store threat as a normal dictionary so all downstream
+    # agents receive a consistent data structure.
+    threat: dict
 
     mitre: dict
 
     explanation: str
 
-    response: str
+    response: dict
 
 
 def threat_hunter_node(state: SOCState):
@@ -27,15 +29,25 @@ def threat_hunter_node(state: SOCState):
         state["incident"]
     )
 
+    # threat_hunter returns a Pydantic ThreatAnalysis object.
+    # Convert it to a normal dictionary before storing it
+    # in LangGraph state.
+    if hasattr(result, "model_dump"):
+        threat = result.model_dump()
+    else:
+        threat = result.dict()
+
     return {
-        "threat": result
+        "threat": threat
     }
 
 
 def mitre_node(state: SOCState):
 
+    threat = state["threat"]
+
     mitre = map_to_mitre(
-        state["threat"].attack_type
+        threat["attack_type"]
     )
 
     return {
@@ -69,7 +81,12 @@ def response_node(state: SOCState):
     }
 
 
+# ============================================================
+# BUILD SOC MULTI-AGENT GRAPH
+# ============================================================
+
 builder = StateGraph(SOCState)
+
 
 builder.add_node(
     "threat_hunter",
@@ -91,6 +108,10 @@ builder.add_node(
     response_node
 )
 
+
+# ============================================================
+# GRAPH FLOW
+# ============================================================
 
 builder.add_edge(
     START,

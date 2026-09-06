@@ -1,0 +1,22 @@
+[
+    "Packet Length Variance",
+    "Packet Length Mean",
+    "Total Length of Fwd Packets",
+    "Bwd Packet Length Max",
+    "Init_Win_bytes_backward",
+    "Max Packet Length",
+    "Fwd Packet Length Max",
+    "Init_Win_bytes_forward",
+    "Flow IAT Max",
+    "Fwd Header Length",
+    "Flow Duration",
+    "Fwd Packet Length Mean",
+    "Fwd IAT Mean",
+    "Destination Port",
+    "Flow Bytes/s",
+    "Bwd Header Length",
+    "Bwd Packets/s",
+    "Flow Packets/s",
+    "Flow IAT Mean",
+    "Fwd IAT Std"
+]
